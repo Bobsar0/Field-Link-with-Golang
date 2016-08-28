@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	fmt.Println("My Field Services Project")
+	fmt.Println("My Field Service Project")
 
 }
