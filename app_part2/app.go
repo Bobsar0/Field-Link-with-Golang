@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -18,22 +19,30 @@ func main() {
 	//DefaultServeMux. The documentation for ServeMux explains how patterns are
 	//matched.
 	http.HandleFunc("/hello", HelloServer)
+	http.HandleFunc("/auth", AuthServer)
 
 	//func ListenAndServe(addr string, handler Handler) error
 	//ListenAndServe listens on the TCP network address addr and then calls Serve
 	//with handler to handle requests on incoming connections. Accepted
 	//connections are configured to enable TCP keep-alives. Handler is typically
 	//nil, in which case the DefaultServeMux is used.
-	err := http.ListenAndServe(":8000", nil)
-	if err != nil {
-		panic(err)
-	}
+
+	//Package log implements a simple logging package. It defines a type, Logger,
+	//with methods like func Fatalln(v ...interface{}) for formatting output.
+	log.Fatalln(http.ListenAndServe(":8001", nil))
 
 } //end of main() function
 
 //handler func(ResponseWriter, *Request)
 func HelloServer(w http.ResponseWriter, req *http.Request) {
 
-	io.WriteString(w, "hello, world!\n")
+	io.WriteString(w, "<h1>Biz9ja</h1>")
+	io.WriteString(w, "<p>We shall get it's a matter of time</p>")
+
+}
+
+func AuthServer(w http.ResponseWriter, req *http.Request) {
+
+	io.WriteString(w, "Now in the Auth Handle func to be Authenticated\n")
 
 }
