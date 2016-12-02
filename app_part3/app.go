@@ -15,6 +15,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/hello", HelloServer)
 	r.HandleFunc("/auth", AuthServer)
+	r.HandleFunc("/ik", iksitehandler)
 
 	//func ListenAndServe(addr string, handler Handler) error
 	//ListenAndServe listens on the TCP network address addr and then calls Serve

@@ -34,6 +34,6 @@ func main() {
 //handler func(ResponseWriter, *Request)
 func HelloServer(w http.ResponseWriter, req *http.Request) {
 
-	io.WriteString(w, "hello, world!\n")
+	io.WriteString(w, "<h1> Helloe ")
 
 }
