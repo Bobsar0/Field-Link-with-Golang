@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"log"
 	"net/http"
-	"os"
 
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -15,40 +13,45 @@ func main() {
 	// Use gorilla/mux for rich routing.
 	// See http://www.gorillatoolkit.org/pkg/mux
 	r := mux.NewRouter()
-	r.HandleFunc("/", firstHandler)
+	r.HandleFunc("/hello", HelloServer)
+	r.HandleFunc("/auth", AuthServer)
+	//r.HandleFunc("/ik", iksitehandler)
 
-	// [START request_logging]
-	// Delegate all of the HTTP routing and serving to the gorilla/mux router.
-	// Log all requests using the standard Apache format.
-	http.Handle("/", handlers.CombinedLoggingHandler(os.Stderr, r))
-	// [END request_logging]
+	//func ListenAndServe(addr string, handler Handler) error
+	//ListenAndServe listens on the TCP network address addr and then calls Serve
+	//with handler to handle requests on incoming connections. Accepted
+	//connections are configured to enable TCP keep-alives. Handler is typically
+	//nil, in which case the DefaultServeMux is used.
 
-	log.Fatalln(http.ListenAndServe(":8000", nil))
+	//Package log implements a simple logging package. It defines a type, Logger,
+	//with methods like func Fatalln(v ...interface{}) for formatting output.
+	log.Fatalln(http.ListenAndServe(":8001", r))
+
+} //end of main() function
+
+//handler func(ResponseWriter, *Request)
+
+func HelloServer(w http.ResponseWriter, req *http.Request) {
+	//func ServeFile(w ResponseWriter, r *Request, name string)
+	http.ServeFile(w, req, "./template/index.html") //the dot indicates to go to the specified location from the root
+	// func ParseFiles(filenames ...string) (*Template, error)
+}
+
+func AuthServer(w http.ResponseWriter, req *http.Request) {
+
+	io.WriteString(w, "Now in the Auth Handle func to be Authenticated\n")
 
 }
 
-func firstHandler(w http.ResponseWriter, r *http.Request) {
-	//var firstTmpl *appTemplate
+//using the servrefile function
 
-	firstTmpl := parseTemplate("first.html")
+// func ParseFiles(filenames ...string) (*Template, error)
+//     ParseFiles creates a new Template and parses the template definitions from
+//     the named files. The returned template's name will have the (base) name and
+//     (parsed) contents of the first file. There must be at least one file. If an
+//     error occurs, parsing stops and the returned *Template is nil.
 
-	if err := firstTmpl.Execute(w, r, nil); err != nil {
-		panic(err)
-
-	}
-}
-
-type appError struct {
-	Error   error
-	Message string
-	Code    int
-}
-
-func appErrorf(err error, format string, v ...interface{}) *appError {
-	return &appError{
-		Error:   err,
-		Message: fmt.Sprintf(format, v...),
-		Code:    500,
-	}
-}
-
+//     When parsing multiple files with the same name in different directories, the
+//     last one mentioned will be the one that results. For instance,
+//     ParseFiles("a/foo", "b/foo") stores "b/foo" as the template named "foo",
+//     while "a/foo" is unavailable.
