@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"log"
 	"net/http"
-	"os"
 
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -15,40 +13,32 @@ func main() {
 	// Use gorilla/mux for rich routing.
 	// See http://www.gorillatoolkit.org/pkg/mux
 	r := mux.NewRouter()
-	r.HandleFunc("/", firstHandler)
+	r.HandleFunc("/hello", HelloServer)
+	r.HandleFunc("/auth", AuthServer)
 
-	// [START request_logging]
-	// Delegate all of the HTTP routing and serving to the gorilla/mux router.
-	// Log all requests using the standard Apache format.
-	http.Handle("/", handlers.CombinedLoggingHandler(os.Stderr, r))
-	// [END request_logging]
+	//func ListenAndServe(addr string, handler Handler) error
+	//ListenAndServe listens on the TCP network address addr and then calls Serve
+	//with handler to handle requests on incoming connections. Accepted
+	//connections are configured to enable TCP keep-alives. Handler is typically
+	//nil, in which case the DefaultServeMux is used.
 
-	log.Fatalln(http.ListenAndServe(":8000", nil))
+	//Package log implements a simple logging package. It defines a type, Logger,
+	//with methods like func Fatalln(v ...interface{}) for formatting output.
+	log.Fatalln(http.ListenAndServe(":8001", r))
+
+} //end of main() function
+
+//handler func(ResponseWriter, *Request)
+func HelloServer(w http.ResponseWriter, req *http.Request) {
+	//func ParseFiles(filenames ...string) (*Template, error)
+	//tmpl, err := template.ParseFiles()
+	//func ServeFile(w ResponseWriter, r *Request, name string)
+	http.ServeFile(w, req, "./template/index.html")
 
 }
 
-func firstHandler(w http.ResponseWriter, r *http.Request) {
-	//var firstTmpl *appTemplate
+func AuthServer(w http.ResponseWriter, req *http.Request) {
 
-	firstTmpl := parseTemplate("first.html")
+	io.WriteString(w, "Now in the Auth Handle func to be Authenticated\n")
 
-	if err := firstTmpl.Execute(w, r, nil); err != nil {
-		panic(err)
-
-	}
 }
-
-type appError struct {
-	Error   error
-	Message string
-	Code    int
-}
-
-func appErrorf(err error, format string, v ...interface{}) *appError {
-	return &appError{
-		Error:   err,
-		Message: fmt.Sprintf(format, v...),
-		Code:    500,
-	}
-}
-
