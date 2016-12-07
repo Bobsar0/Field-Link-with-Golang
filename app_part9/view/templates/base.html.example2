@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Idumota Market</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main_orig.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+<script src="/static/js/ori.4.js"></script>
+<script src="/static/js/jquery.js"></script>
+</head>
+<body>
+  <header class="container">     
+    <div class="row">
+          <h1 class="col-sm-3">Biz9ja</h1>
+          <nav  class="col-sm-3 text-left">
+                    <p id="home"><a href="/">Home</a></p>
+                    <p id="home"><a href="/shops">Shops</a></p>
+          </nav>
+          <div class="col-sm-3">
+             <form >
+                <input type="text" name="search" placeholder="Search..">
+             </form>
+          </div>
+          <div class="col-sm-3 text-right">
+                <!-- [START auth] -->
+          <!-- {{if .AuthEnabled}} 
+                {{if .Profile}}   
+              <form method="post" action="{{.LogoutURL}}" class="navbar-form navbar-right">
+              <button class="btn btn-default">Log out</button>
+              </form>
+                <div class="navbar-text navbar-right">
+                   {{if .Profile.Image.Url}}
+                      <img class="img-circle" width="24" src="{{.Profile.Image.Url}}">
+                  {{end}}
+                   <span>{{.Profile.DisplayName}}</span>
+                </div>
+                 {{else}}
+                 <p id="log"><a id="myLink1" href="#myModal1"><span class="glyphicon glyphicon-log-in"></span> Login</a></a></p>
+                 <p id="log"><a id="myLink2" href="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</a></p>
+                 {{end}}
+                {{end}}  -->
+                <!-- delete next two lines to revert -->
+                 <p id="log"><a id="myLink1" href="#myModal1"><span class="glyphicon glyphicon-log-in"></span> Login</a></a></p>
+                 <p id="log"><a id="myLink2" href="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</a></p>
+
+            <!-- [END auth] -->
+         </div>
+    </div>
+  </header>
+
+  {{template "body" .Data}}
+
+   <!-- Modal -->
+        <div class="modal fade" id="myModal1" role="dialog">
+
+          <div class="modal-dialog">
+                  
+                    <!-- Modal content-->
+            <div class="modal-content">
+                  <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+                  </div>
+
+                  <div class="modal-body" style="padding:40px 50px;color: #1c1c1c;">
+                      <form role="form">
+                        <div class="form-group">
+                          <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                          <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                          <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                          <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                        </div>
+                        <div class="checkbox">
+                          <label><input type="checkbox" value="" checked>Remember me</label>
+                        </div>
+                          <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+                      </form>
+                    <p style="display: flex; justify-content: center; padding: 20px 0px 0px;">
+                      <a class="btn btn-info" style="color:white; background-color: #286090; text-transform: none;" href="{{.LoginURL}}" role="button">Login with <img src="static/css/G_is_For_Google_New_Logo_Thumb.png" style="width: 24px;">oogle</a>
+                      </p>
+                  </div>
+
+                  <div class="modal-footer" style="color: #1c1c1c;">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <p style="display: flex; justify-content: flex-end;">Not a member? <a id="myLink2" href="#myModal2">Sign Up</a></p>
+                    <p style="display: flex; justify-content: flex-end;">Forgot <a id="loginMenu" href="#">Password?</a></p>
+                  </div>
+              </div> 
+
+          </div>
+
+        </div>
+
+        <div class="modal fade" id="myModal2" role="dialog">
+
+                <div class="modal-dialog">
+                        
+                          <!-- Modal content-->
+                  <div class="modal-content">
+                        <div class="modal-header" style="padding:35px 50px;">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4><span class="glyphicon glyphicon-lock"></span> Sign Up</h4>
+                        </div>
+
+                        <div class="modal-body" style="padding:40px 50px;color: #1c1c1c;">
+                            <form role="form">
+                              <div class="form-group">
+                                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                                <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                              </div>
+                              <div class="form-group">
+                                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                                <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                              </div>
+                              <div class="checkbox">
+                                <label><input type="checkbox" value="" checked>Remember me</label>
+                              </div>
+                                <button type="submit" class="btn btn-success btn-block"> <span class="glyphicon glyphicon-user"></span>Create Account</button>
+                                	<!--input type="submit" value="Create Account" class="btn btn-primary btn-block"-->
+                            </form>
+                          <p style="display: flex; justify-content: center; padding: 20px 0px 0px;">
+                            <a class="btn btn-info" style="color:white; background-color: #286090; text-transform: none;" href="{{.LoginURL}}" role="button">Login with <img src="static/css/G_is_For_Google_New_Logo_Thumb.png" style="width: 24px;">oogle</a>
+                            </p>
+                        </div>
+
+                        <div class="modal-footer" style="color: #1c1c1c;">
+                          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                          <p style="display: flex; justify-content: flex-end;">Not a member? <a  id="loginMenu" href="#">Sign Up</a></p>
+                          <p style="display: flex; justify-content: flex-end;">Forgot <a id="loginMenu" href="#">Password?</a></p>
+                        </div>
+                    </div> 
+
+                </div>
+
+        </div>
+

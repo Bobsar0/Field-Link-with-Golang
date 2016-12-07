@@ -1,0 +1,87 @@
+<!--{{template "header"}}
+<! Content will go here -->
+
+
+  
+<!-- Navigation We can use a <nav> or <div> element as a container for the navigation links.-->
+{{template "navigation"}}
+
+<!--Slide Show -->
+<section>
+  <img class="mySlides" src="passport.jpg" alt="Steve" style="width:100% height:100px">
+  <!--<img class = "mySlides" src="http://media.licdn.com/media/AAEAAQAAAAAAAAYxAAAAJDYzMjQ5NjUxLWY5NDctNGU5OC04MGMxLTY0ZDVlNzgzYTQ3OA.png"
+  style="width:100%">-->
+  <img class="mySlides" src="/img/Steve_1.jpg"alt="Steve again"
+  style="width:100%">
+ 
+  <img class="mySlides" src="\Users\Bobsar\GoWorkspace\src\github.com\chidi150\Field-Link-with-Golang\newApp3\template\img\Steve_2.jpg"
+  alt = "Steve ooh"
+  style="width:100%">
+   <!--<img class="mySlides" src="http://www.theta360.com/s/cjTnXeIZ1UPDhXUCBSw0td4y0"
+  style="width:100%"> 
+   <img class="mySlides" blockquote data-width="500" data-height="375" class="ricoh-theta-spherical-image" >Post from RICOH THETA. - <a href="http://www.theta360.com/s/f62bTYemkfrP56aBrAotIqO4O" target="_blank">Spherical Image - RICOH THETA</a></blockquote>
+  <script async src="http:www.//theta360.com/widgets.js" charset="utf-8"></script>-->
+</section>
+
+
+<!-- Description -->
+<!--The w3-container class takes care of standard padding. The w3-center class centers the content.
+The w3-wide class provides a wider heading. The w3-opacity class provides text transparency.
+The max-width style sets a maximum with of the band description section-->
+<section class="w3-container w3-center w3-content" style="max-width:200px">
+  <!--<h2 class="w3-wide">FIELDLINK</h2>-->
+  <p class="w3-opacity"><i>ORGANISATIONS</i></p>
+  <p class="w3-justify"> In our contemporary IoT-enveloped society, the digital trend is fast-pacedly moving towards an angle of oblivion. As an organisation, needless to say you need to move with it. You need to connect to individuals/professionals from all degree  without moving out of ur comfort zone. This is where fieldlink/TalentLink comes in. With the app from the appstore or the website you can connect with an individual of your desired <a href="html_professions.html#professions">profession</a> for your needs in no time and with no hassle... </p>
+</section>
+<!--
+GOOGLE MAP-->
+<div id="map" style="width:100%;height:400px;background:blue"></div>
+<script>
+function myMap() {
+    var mapOptions = {
+        center: new google.maps.LatLng(6.5244, 3.3792),
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    }
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+
+<!--<section class="w3-row-padding w3-center w3-light-grey">
+  <article class="w3-second">
+    <p>Organisations</p>
+        <img src="img/global.jpg" alt="Random Name" style="width:100%">
+
+  </article>
+  <article class="w3-second">
+    <p>Professionals</p>
+    <img src="img/professionals" alt="Random Name" style="width:100%">
+  </article>
+  <article class="w3-third">
+    <p>Ringo</p>
+    <img src="img_bandmember.jpg" alt="Random Name" style="width:100%">
+  </article>
+</section>-->
+
+</body>
+
+{{template "footer"}}
+<!--Automatic Slideshow - change image every 3 seconds-->
+<script>//javascript
+myIndex := 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 3000);
+}
+</script>-->
