@@ -14,31 +14,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type appTemplate struct {
-	t *template.Template
-}
-
-var indextmpl = parseTemplate("./templates/index/")
-var shoptmpl = parseTemplate("./templates/shop/")
-
-func parseTemplate(dir string) *appTemplate {
-	var tmpl appTemplate
-	tmpl.t = template.Must(template.New("index.html").ParseGlob(dir + "*.html"))
-	return &tmpl
-}
-
 func main() {
-	//http.ServeFile(w, req, "./template/index.html") //the dot indicates to go to the specified location from the root
-	// func ParseFiles(filenames ...string) (*Template, error)
-	//tmpl, err := template.New("index.html").ParseFiles("index.html", "header.html", "nav.html", "footer.html")
-
 	r := mux.NewRouter()
 	r.HandleFunc("/index", IndexServer)
 	r.HandleFunc("/shop", ShopServer)
 	//r.HandleFunc("/auth", AuthServer)
 
-	r.PathPrefix("/asset/static/").
-		Handler(http.StripPrefix("/asset/static/", http.FileServer(http.Dir("./asset/static"))))
+	http.Handle("/css/africangirlss.jpg", http.FileServer(http.Dir("./asset/static")))
+	http.Handle("/asset/static/css/main.css", http.FileServer(http.Dir(".")))
 
 	http.Handle("/", handlers.CombinedLoggingHandler(os.Stderr, r))
 
@@ -49,20 +32,32 @@ func main() {
 // type appTemplateInt interface{
 // 	ExecuteTemplate()
 // }
+type appTemplate struct {
+	t *template.Template
+}
 
 func IndexServer(w http.ResponseWriter, req *http.Request) {
+
+	var tmpls appTemplate
+	//http.ServeFile(w, req, "./template/index.html") //the dot indicates to go to the specified location from the root
+	// func ParseFiles(filenames ...string) (*Template, error)
+	//tmpl, err := template.New("index.html").ParseFiles("index.html", "header.html", "nav.html", "footer.html")
+	tmpls.t = template.Must(template.New("index.html").ParseGlob("./templates/*.html"))
+
 	//auth := false
 	//func (t *template) Execute(w http.ResponseWriter, req *http.Request, view string, data interface{})
 
-	indextmpl.ExecuteT(w, req, "index", nil)
+	tmpls.ExecuteT(w, req, "index", nil)
 	// futmplnc (t *Template) Execute(wr io.Writer, data interface{}) error: requires a parsed CONTENT of the html file and handles as html config/content
 }
 func ShopServer(w http.ResponseWriter, req *http.Request) {
 
-	shoptmpl.ExecuteT(w, req, "shop", nil)
+	var tmpls appTemplate
+	tmpls.t = template.Must(template.New("index.html").ParseGlob("./templates/*.html"))
+	tmpls.ExecuteT(w, req, "shop", nil)
 }
 
-func (tmpl *appTemplate) ExecuteT(w http.ResponseWriter, req *http.Request, view string, data interface{}) {
+func (tmpl appTemplate) ExecuteT(w http.ResponseWriter, req *http.Request, view string, data interface{}) {
 	err := tmpl.t.ExecuteTemplate(w, view, data) //execute template handles as a html file
 	if err != nil {
 		panic(err)

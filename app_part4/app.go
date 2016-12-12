@@ -15,7 +15,10 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/hello", HelloServer)
 	r.HandleFunc("/auth", AuthServer)
+<<<<<<< HEAD
+=======
 	//r.HandleFunc("/ik", iksitehandler)
+>>>>>>> c0da7012638fb768548c71bbb7547beb6173fe5c
 
 	//func ListenAndServe(addr string, handler Handler) error
 	//ListenAndServe listens on the TCP network address addr and then calls Serve
@@ -28,6 +31,23 @@ func main() {
 	log.Fatalln(http.ListenAndServe(":8001", r))
 
 } //end of main() function
+<<<<<<< HEAD
+
+//handler func(ResponseWriter, *Request)
+func HelloServer(w http.ResponseWriter, req *http.Request) {
+	//func ParseFiles(filenames ...string) (*Template, error)
+	//tmpl, err := template.ParseFiles()
+	//func ServeFile(w ResponseWriter, r *Request, name string)
+	http.ServeFile(w, req, "./template/index.html")
+
+}
+
+func AuthServer(w http.ResponseWriter, req *http.Request) {
+
+	io.WriteString(w, "Now in the Auth Handle func to be Authenticated\n")
+
+}
+=======
 
 //handler func(ResponseWriter, *Request)
 
@@ -55,3 +75,4 @@ func AuthServer(w http.ResponseWriter, req *http.Request) {
 //     last one mentioned will be the one that results. For instance,
 //     ParseFiles("a/foo", "b/foo") stores "b/foo" as the template named "foo",
 //     while "a/foo" is unavailable.
+>>>>>>> c0da7012638fb768548c71bbb7547beb6173fe5c
